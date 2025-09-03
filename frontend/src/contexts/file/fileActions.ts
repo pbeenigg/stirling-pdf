@@ -13,8 +13,7 @@ import {
 import { FileId, FileMetadata } from '../../types/file';
 import { generateThumbnailWithMetadata } from '../../utils/thumbnailUtils';
 import { FileLifecycleManager } from './lifecycle';
-import { fileProcessingService } from '../../services/fileProcessingService';
-import { buildQuickKeySet, buildQuickKeySetFromMetadata } from './fileSelectors';
+import { buildQuickKeySet } from './fileSelectors';
 
 const DEBUG = process.env.NODE_ENV === 'development';
 
@@ -383,7 +382,6 @@ async function persistFilesToIndexedDB(
 export async function consumeFiles(
   inputFileIds: FileId[],
   outputFiles: File[],
-  stateRef: React.MutableRefObject<FileContextState>,
   filesRef: React.MutableRefObject<Map<FileId, File>>,
   dispatch: React.Dispatch<FileContextAction>,
   indexedDB?: { saveFile: (file: File, fileId: FileId, existingThumbnail?: string) => Promise<any> } | null
@@ -408,7 +406,7 @@ export async function consumeFiles(
   });
 
   if (DEBUG) console.log(`📄 consumeFiles: Successfully consumed files - removed ${inputFileIds.length} inputs, added ${outputFileRecords.length} outputs`);
-  
+
   // Return the output file IDs for undo tracking
   return outputFileRecords.map(({ fileId }) => fileId);
 }
@@ -440,7 +438,7 @@ async function restoreFilesAndCleanup(
         if (DEBUG) console.warn(`📄 Skipping empty file ${file.name}`);
         return;
       }
-      
+
       // Restore the file to filesRef
       if (DEBUG) console.log(`📄 Restoring file ${file.name} with id ${record.id} to filesRef`);
       filesRef.current.set(record.id, file);
@@ -455,7 +453,7 @@ async function restoreFilesAndCleanup(
         throw error; // Re-throw to trigger rollback
       })
     );
-    
+
     // Execute all IndexedDB operations
     await Promise.all(indexedDBPromises);
   }
@@ -468,7 +466,6 @@ export async function undoConsumeFiles(
   inputFiles: File[],
   inputFileRecords: FileRecord[],
   outputFileIds: FileId[],
-  stateRef: React.MutableRefObject<FileContextState>,
   filesRef: React.MutableRefObject<Map<FileId, File>>,
   dispatch: React.Dispatch<FileContextAction>,
   indexedDB?: { saveFile: (file: File, fileId: FileId, existingThumbnail?: string) => Promise<any>; deleteFile: (fileId: FileId) => Promise<void> } | null
@@ -482,7 +479,7 @@ export async function undoConsumeFiles(
 
   // Create a backup of current filesRef state for rollback
   const backupFilesRef = new Map(filesRef.current);
-  
+
   try {
     // Prepare files to restore
     const filesToRestore = inputFiles.map((file, index) => ({
@@ -508,7 +505,7 @@ export async function undoConsumeFiles(
     });
 
     if (DEBUG) console.log(`📄 undoConsumeFiles: Successfully undone consume operation - restored ${inputFileRecords.length} inputs, removed ${outputFileIds.length} outputs`);
-    
+
   } catch (error) {
     // Rollback filesRef to previous state
     if (DEBUG) console.error('📄 undoConsumeFiles: Error during undo, rolling back filesRef', error);

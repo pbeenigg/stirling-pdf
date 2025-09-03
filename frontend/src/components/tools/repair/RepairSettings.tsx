@@ -8,11 +8,7 @@ interface RepairSettingsProps {
   disabled?: boolean;
 }
 
-const RepairSettings: React.FC<RepairSettingsProps> = ({ 
-  parameters, 
-  onParameterChange, 
-  disabled = false 
-}) => {
+const RepairSettings: React.FC<RepairSettingsProps> = ({}) => {
   const { t } = useTranslation();
 
   return (

@@ -8,11 +8,7 @@ interface RemoveCertificateSignSettingsProps {
   disabled?: boolean;
 }
 
-const RemoveCertificateSignSettings: React.FC<RemoveCertificateSignSettingsProps> = ({ 
-  parameters, 
-  onParameterChange, // Unused - kept for interface consistency and future extensibility
-  disabled = false 
-}) => {
+const RemoveCertificateSignSettings: React.FC<RemoveCertificateSignSettingsProps> = ({}) => {
   const { t } = useTranslation();
 
   return (

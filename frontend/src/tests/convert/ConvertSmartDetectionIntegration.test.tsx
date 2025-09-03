@@ -505,7 +505,7 @@ describe('Convert Tool - Smart Detection Integration Tests', () => {
   describe('Real File Extension Detection', () => {
 
     test('should correctly detect various file extensions', async () => {
-      const { result } = renderHook(() => useConvertParameters(), {
+      renderHook(() => useConvertParameters(), {
         wrapper: TestWrapper
       });
 

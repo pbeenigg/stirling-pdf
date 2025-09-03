@@ -37,7 +37,6 @@ const DEBUG = process.env.NODE_ENV === 'development';
 // Inner provider component that has access to IndexedDB
 function FileContextInner({
   children,
-  enableUrlSync = true,
   enablePersistence = true
 }: FileContextProviderProps) {
   const [state, dispatch] = useReducer(fileContextReducer, initialFileContextState);
@@ -122,11 +121,11 @@ function FileContextInner({
 
   // Helper functions for pinned files
   const consumeFilesWrapper = useCallback(async (inputFileIds: FileId[], outputFiles: File[]): Promise<FileId[]> => {
-    return consumeFiles(inputFileIds, outputFiles, stateRef, filesRef, dispatch, indexedDB);
+    return consumeFiles(inputFileIds, outputFiles, filesRef, dispatch, indexedDB);
   }, [indexedDB]);
 
   const undoConsumeFilesWrapper = useCallback(async (inputFiles: File[], inputFileRecords: FileRecord[], outputFileIds: FileId[]): Promise<void> => {
-    return undoConsumeFiles(inputFiles, inputFileRecords, outputFileIds, stateRef, filesRef, dispatch, indexedDB);
+    return undoConsumeFiles(inputFiles, inputFileRecords, outputFileIds, filesRef, dispatch, indexedDB);
   }, [indexedDB]);
 
   // Helper to find FileId from File object

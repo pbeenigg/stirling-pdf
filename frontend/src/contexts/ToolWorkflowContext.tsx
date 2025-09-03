@@ -113,7 +113,7 @@ export function ToolWorkflowProvider({ children }: ToolWorkflowProviderProps) {
   const [state, dispatch] = useReducer(toolWorkflowReducer, initialState);
 
   // Store reset functions for tools
-  const [toolResetFunctions, setToolResetFunctions] = React.useState<Record<string, () => void>>({});
+  const [_toolResetFunctions, setToolResetFunctions] = React.useState<Record<string, () => void>>({});
 
   // Navigation actions and state are available since we're inside NavigationProvider
   const { actions } = useNavigationActions();

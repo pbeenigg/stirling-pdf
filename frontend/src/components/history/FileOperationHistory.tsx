@@ -5,15 +5,13 @@ import {
   Text,
   Badge,
   Group,
-  Collapse,
   Box,
   ScrollArea,
   Code,
   Divider
 } from '@mantine/core';
 // FileContext no longer needed - these were stub functions anyway
-import {  FileOperation, FileOperationHistory as FileOperationHistoryType } from '../../types/fileContext';
-import { PageOperation } from '../../types/pageEditor';
+import {  FileOperation } from '../../types/fileContext';
 import { FileId } from '../../types/file';
 
 interface FileOperationHistoryProps {
@@ -28,8 +26,8 @@ const FileOperationHistory: React.FC<FileOperationHistoryProps> = ({
   maxHeight = 400
 }) => {
   // These were stub functions in the old context - replace with empty stubs
-  const getFileHistory = (fileId: FileId) => ({ operations: [], createdAt: Date.now(), lastModified: Date.now() });
-  const getAppliedOperations = (fileId: FileId) => [];
+  const getFileHistory = (_fileId: FileId) => ({ operations: [], createdAt: Date.now(), lastModified: Date.now() });
+  const getAppliedOperations = (_fileId: FileId) => [];
 
   const history = getFileHistory(fileId);
   const allOperations = showOnlyApplied ? getAppliedOperations(fileId) : history?.operations || [];

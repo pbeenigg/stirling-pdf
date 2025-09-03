@@ -8,11 +8,7 @@ interface SingleLargePageSettingsProps {
   disabled?: boolean;
 }
 
-const SingleLargePageSettings: React.FC<SingleLargePageSettingsProps> = ({ 
-  parameters, 
-  onParameterChange, 
-  disabled = false 
-}) => {
+const SingleLargePageSettings: React.FC<SingleLargePageSettingsProps> = ({}) => {
   const { t } = useTranslation();
 
   return (

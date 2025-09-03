@@ -15,7 +15,7 @@ const LanguageSelector = ({ position = 'bottom-start', offset = 8, compact = fal
   const { i18n } = useTranslation();
   const [opened, setOpened] = useState(false);
   const [animationTriggered, setAnimationTriggered] = useState(false);
-  const [isChanging, setIsChanging] = useState(false);
+  const [_isChanging, setIsChanging] = useState(false);
   const [pendingLanguage, setPendingLanguage] = useState<string | null>(null);
   const [rippleEffect, setRippleEffect] = useState<{x: number, y: number, key: number} | null>(null);
 
@@ -54,7 +54,7 @@ const LanguageSelector = ({ position = 'bottom-start', offset = 8, compact = fal
     }, 200);
   };
 
-  const currentLanguage = supportedLanguages[i18n.language as keyof typeof supportedLanguages] || 
+  const currentLanguage = supportedLanguages[i18n.language as keyof typeof supportedLanguages] ||
                          supportedLanguages['en-GB'];
 
   // Trigger animation when dropdown opens
@@ -77,8 +77,8 @@ const LanguageSelector = ({ position = 'bottom-start', offset = 8, compact = fal
           }
         `}
       </style>
-      <Menu 
-        opened={opened} 
+      <Menu
+        opened={opened}
         onChange={setOpened}
         width={600}
         position={position}
@@ -166,15 +166,15 @@ const LanguageSelector = ({ position = 'bottom-start', offset = 8, compact = fal
                       justifyContent: 'flex-start',
                       position: 'relative',
                       overflow: 'hidden',
-                      backgroundColor: option.value === i18n.language 
+                      backgroundColor: option.value === i18n.language
                         ? 'light-dark(var(--mantine-color-blue-1), var(--mantine-color-blue-8))'
                         : 'transparent',
-                      color: option.value === i18n.language 
+                      color: option.value === i18n.language
                         ? 'light-dark(var(--mantine-color-blue-9), var(--mantine-color-white))'
                         : 'light-dark(var(--mantine-color-gray-7), var(--mantine-color-white))',
                       transition: 'all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                       '&:hover': {
-                        backgroundColor: option.value === i18n.language 
+                        backgroundColor: option.value === i18n.language
                           ? 'light-dark(var(--mantine-color-blue-2), var(--mantine-color-blue-7))'
                           : 'light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5))',
                         transform: 'translateY(-1px)',

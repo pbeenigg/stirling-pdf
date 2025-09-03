@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { describe, test, expect, vi, beforeEach, afterEach, Mock } from 'vitest';
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useConvertOperation } from '../../hooks/tools/convert/useConvertOperation';
 import { ConvertParameters } from '../../hooks/tools/convert/useConvertParameters';
 import { FileContextProvider } from '../../contexts/FileContext';
